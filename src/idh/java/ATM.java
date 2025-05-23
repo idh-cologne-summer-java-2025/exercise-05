@@ -8,7 +8,10 @@ public class ATM  {
 	
 	// initial cash in the ATM
 	int cash = 100000;
-
+	
+	//wenn FailedLogin eine bestimmte Zahl erreicht, dann "zerstört" sich der Automat selbst
+	int failedLogin = 0;
+	
 	Bank bank;
 	
 	public ATM(Bank bank) {
@@ -27,9 +30,11 @@ public class ATM  {
 			try {
 				System.out.print("Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
+				System.out.print("Please enter Password: ");
+				String password = br.readLine();
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				cashout(accountNumber, password, amount);
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -37,7 +42,7 @@ public class ATM  {
 		}
 	}
 
-	public void cashout(int accountNumber, int amount) {
+	public void cashout(int accountNumber, String password, int amount) {
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -51,7 +56,28 @@ public class ATM  {
 			return;
 		}
 		
-		// TODO: Check passcode!
+		// Check passcode!
+		if (password.hashCode() != account.passcode) {
+			System.out.println("Password Incorrect!");
+			failedLogin++;
+			switch(failedLogin) {
+				case 4:
+					System.out.println("Self-Destruct Activated!");
+					System.out.println("POW!!!!!!!!!!!!!!!!");
+					System.exit(0);
+				case 3:
+					System.out.println("1 try remaining!");
+					break;
+				case 2:
+					System.out.println("2 tries remaining!");
+					break;
+				case 1:
+					System.out.println("3 tries remaining!");
+					break;
+			}
+			return;
+		}
+		
 		
 		// check for balance of the account
 		if (amount > account.getBalance()) {

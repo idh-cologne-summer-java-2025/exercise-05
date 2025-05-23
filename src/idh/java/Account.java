@@ -13,7 +13,13 @@ public class Account {
 	// the id of the account
 	int id;
 	
-	//TODO: Add passcode
+	//Add passcode
+	int passcode;
+	
+	//Password wird in int-Hashcode überführt
+	public void setPassword(String p) {
+		passcode = p.hashCode();
+	}
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
