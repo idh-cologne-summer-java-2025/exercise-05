@@ -27,9 +27,13 @@ public class ATM  {
 			try {
 				System.out.print("Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
-				System.out.print("Enter the amount to withdraw: ");
-				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				if (checkAccount(accountNumber)) {
+					System.out.print("Enter the amount to withdraw: ");
+					int amount = Integer.parseInt(br.readLine());
+					System.out.print("Enter your passcode: ");
+					String passcode = (br.readLine());
+					cashout(accountNumber, amount, passcode);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -37,22 +41,19 @@ public class ATM  {
 		}
 	}
 
-	public void cashout(int accountNumber, int amount) {
+	public void cashout(int accountNumber, int amount, String passcode) {
 		// check for cash in the ATM
+		Account account = bank.getAccount(accountNumber);
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
 			return;
 		}
-		
-		// check for existence of the account
-		Account account = bank.getAccount(accountNumber);
-		if (account == null) {
-			System.out.println("Sorry, this account doesn't exist.");
+		// TODO: Check passcode!
+		//check if pincode is correct/does exist
+		if (passcode.hashCode() != account.getPasscode()) {
+			System.out.println("Sorry, wrong Passcode.");
 			return;
 		}
-		
-		// TODO: Check passcode!
-		
 		// check for balance of the account
 		if (amount > account.getBalance()) {
 			System.out.println("Sorry, you're out of money.");
@@ -67,5 +68,12 @@ public class ATM  {
 
 	}
 	
-
+	// check for existence of the account
+	public boolean checkAccount (int accountNumber) {
+			Account account = bank.getAccount(accountNumber);
+			if (account == null) {
+				System.out.println("Sorry, this account doesn't exist.");
+				return false;
+			}return true;
+	}
 }

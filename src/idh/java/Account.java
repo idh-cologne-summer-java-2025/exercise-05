@@ -14,6 +14,7 @@ public class Account {
 	int id;
 	
 	//TODO: Add passcode
+	int passcode;
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
@@ -36,6 +37,13 @@ public class Account {
 		this.balance = status;
 	}
 	
+	public void setPassword(String pin) {
+		this.passcode = pin.hashCode();
+		
+	}
+	public int getPasscode() {
+		return passcode;
+	}
 	/**
 	 * Withdraws a sum of money from the account
 	 * @param sum
