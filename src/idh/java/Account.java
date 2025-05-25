@@ -14,6 +14,10 @@ public class Account {
 	int id;
 	
 	//TODO: Add passcode
+	
+	public int password; 
+	// <-- 
+
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
@@ -43,6 +47,16 @@ public class Account {
 	public void withdraw(int sum) {
 		this.balance = balance - sum;
 	}
+	// NEU: Passwort setzen
+    public void setPassword(int password) {
+        this.password = password;
+    }
+
+    // NEU: Passwort prüfen
+    public boolean checkPassword(int input) {
+        return this.password == input;
+    }
 	
 	
+   
 }
