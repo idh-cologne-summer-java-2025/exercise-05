@@ -27,9 +27,11 @@ public class ATM  {
 			try {
 				System.out.print("Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
+				System.out.print("Enter your account passcode: ");
+				String passcode = br.readLine();
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				cashout(accountNumber, amount, passcode);
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -37,7 +39,7 @@ public class ATM  {
 		}
 	}
 
-	public void cashout(int accountNumber, int amount) {
+	public void cashout(int accountNumber, int amount, String passcode ) {
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -51,6 +53,10 @@ public class ATM  {
 			return;
 		}
 		
+		if (!account.checkpW(passcode)) {
+			System.out.println("Sorry, wrong passcode. Please try again.");
+			return;
+		}
 		// TODO: Check passcode!
 		
 		// check for balance of the account
