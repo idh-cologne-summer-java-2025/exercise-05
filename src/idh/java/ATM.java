@@ -63,8 +63,6 @@ public class ATM  {
 		// withdraw
 		account.withdraw(amount);
 		cash += amount;
-		System.out.println("Ok, here is your money, enjoy!");
-
 	}
 	
 
