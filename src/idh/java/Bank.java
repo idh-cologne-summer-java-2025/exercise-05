@@ -1,37 +1,39 @@
 package idh.java;
 
-public class Bank{
-	
-	// TODO: Use Map to enable a higher number of accounts 
-	// and start nextAccountID with 7000001 
-	Account[] accounts = new Account[5];
-	int nextAccountID;
+import java.util.HashMap;
+import java.util.Map;
 
-	public Bank() {
-		nextAccountID = 0;
-	}
-	
-	public boolean addAccount(Account account) {
-		if(notYetFull()) {
-			account.setId(nextAccountID);
-			accounts[nextAccountID]=account;
-			System.out.println("Your account number is " + nextAccountID);
-			
-			nextAccountID++;
-			
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public Account getAccount(int number) {
-		return accounts[number-1];
-	}
-	
-	public boolean notYetFull() {
-		return nextAccountID < accounts.length;
-	}
+public class Bank {
+    // Map für Konten: Account-ID → Account
+    private Map<Integer, Account> accounts = new HashMap<>();
+    // erste freie Kontonummer
+    private int nextAccountID;
 
+    public Bank() {
+        // Kontonummern ab 7 000 001
+        this.nextAccountID = 7_000_001;
+    }
+
+    /**
+     * Legt ein neues Konto an, weist ihm eine eindeutige ID zu
+     * und speichert es in der Map.
+     * @param account das anzulegende Konto
+     * @return immer true (keine Kapazitätsgrenze mehr)
+     */
+    public boolean addAccount(Account account) {
+        int id = nextAccountID++;
+        account.setId(id);
+        accounts.put(id, account);
+        System.out.println("Your account number is " + id);
+        return true;
+    }
+
+    /**
+     * Gibt das Konto zur übergebenen Kontonummer zurück,
+     * oder null, falls es nicht existiert.
+     * @param number die Kontonummer (ID)
+     */
+    public Account getAccount(int number) {
+        return accounts.get(number);
+    }
 }
