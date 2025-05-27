@@ -1,48 +1,54 @@
 package idh.java;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
-/**
- * This class represents an account in our bank.
- * @author reiterns
- *
- */
 public class Account {
-	// the balance of the account
-	int balance;
-	
-	// the id of the account
-	int id;
-	
-	//TODO: Add passcode
+    private int balance;
+    private int id;
+    private byte[] hashedPasscode;
 
-	public Account(int status) {
-		// ID wird von der Bank vergeben!
-		this.balance = status;
-	}
-	
-	public int getId() {
-		return id;
-	}
+    public Account(int balance) {
+        this.balance = balance;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public int getBalance() {
-		return balance;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setBalance(int status) {
-		this.balance = status;
-	}
-	
-	/**
-	 * Withdraws a sum of money from the account
-	 * @param sum
-	 */
-	public void withdraw(int sum) {
-		this.balance = balance - sum;
-	}
-	
-	
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public void withdraw(int amount) {
+        this.balance -= amount;
+    }
+
+    public void setPasscode(String passcode) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            hashedPasscode = md.digest(passcode.getBytes());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 not available");
+        }
+    }
+
+    public boolean verifyPasscode(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] inputHash = md.digest(input.getBytes());
+            return Arrays.equals(hashedPasscode, inputHash);
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        }
+    }
 }
