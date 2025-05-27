@@ -1,48 +1,53 @@
 package idh.java;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
-/**
- * This class represents an account in our bank.
- * @author reiterns
- *
- */
 public class Account {
-	// the balance of the account
-	int balance;
-	
-	// the id of the account
-	int id;
-	
-	//TODO: Add passcode
+    private int balance;
+    private int id;
+    private String hashedPasscode;
 
-	public Account(int status) {
-		// ID wird von der Bank vergeben!
-		this.balance = status;
-	}
-	
-	public int getId() {
-		return id;
-	}
+    public Account(int balance) {
+        this.balance = balance;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getBalance() {
-		return balance;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setBalance(int status) {
-		this.balance = status;
-	}
-	
-	/**
-	 * Withdraws a sum of money from the account
-	 * @param sum
-	 */
-	public void withdraw(int sum) {
-		this.balance = balance - sum;
-	}
-	
-	
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public void withdraw(int sum) {
+        this.balance -= sum;
+    }
+
+    public void setHashedPasscode(String passcode) {
+        this.hashedPasscode = hash(passcode);
+    }
+
+    public boolean verifyPasscode(String input) {
+        return hash(input).equals(hashedPasscode);
+    }
+
+    private String hash(String passcode) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(passcode.getBytes());
+            return Base64.getEncoder().encodeToString(hashBytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 not supported");
+        }
+    }
 }
