@@ -27,9 +27,11 @@ public class ATM  {
 			try {
 				System.out.print("Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
+				System.out.print("Enter your passcode to verify: ");
+				String accountPass = (br.readLine()); // read as String so we can get the hashcode of it.
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				cashout(accountNumber, amount, accountPass); // the reason why you only get an error at the end of a full dialog is because cashout only checks all of the conditions after the inputs. 
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -37,7 +39,7 @@ public class ATM  {
 		}
 	}
 
-	public void cashout(int accountNumber, int amount) {
+	public void cashout(int accountNumber, int amount, String accountPass) {
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -51,7 +53,11 @@ public class ATM  {
 			return;
 		}
 		
-		// TODO: Check passcode!
+		// check passcode
+		if (accountPass.hashCode() != account.getPassword()) { // hashcode != hashcode
+			System.out.println("Sorry, wrong passcode.");
+			return;
+		}
 		
 		// check for balance of the account
 		if (amount > account.getBalance()) {

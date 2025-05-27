@@ -13,7 +13,9 @@ public class Account {
 	// the id of the account
 	int id;
 	
-	//TODO: Add passcode
+	// the passcode
+	int passcodeHash;
+
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
@@ -27,6 +29,15 @@ public class Account {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public int getPassword()
+	{
+		return passcodeHash;
+	}
+	
+	public void setPassword(String passcode) {
+        this.passcodeHash = passcode.hashCode(); // doesn´t save the passcode Text, but the hashcode of it (numbers).
+    }
 
 	public int getBalance() {
 		return balance;
