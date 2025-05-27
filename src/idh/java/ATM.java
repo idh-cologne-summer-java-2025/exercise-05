@@ -11,7 +11,7 @@ public class ATM  {
 
 	Bank bank;
 	
-	public ATM(Bank bank) {
+	public ATM(Bank bank) {		
 		this.bank = bank;
 	}
 	
@@ -38,6 +38,7 @@ public class ATM  {
 	}
 
 	public void cashout(int accountNumber, int amount) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -51,6 +52,16 @@ public class ATM  {
 			return;
 		}
 		
+		try {
+			System.out.println("Bitte geben sie ihren Passcode ein: ");
+			String passcode = br.readLine();
+			
+			if (!account.checkPasscode(passcode)) {
+	            System.out.println("Falscher Passcode.");
+	            return;
+	        }
+	    
+		
 		// TODO: Check passcode!
 		
 		// check for balance of the account
@@ -61,11 +72,14 @@ public class ATM  {
 		
 		
 		// withdraw
-		account.withdraw(amount);
-		cash += amount;
+		if(account.withdraw(amount, passcode)) {
+		cash -= amount;
 		System.out.println("Ok, here is your money, enjoy!");
 
+		}
 	}
-	
-
+		catch (Exception e) {
+			System.out.println("Systemfehler");
+		}
+}
 }

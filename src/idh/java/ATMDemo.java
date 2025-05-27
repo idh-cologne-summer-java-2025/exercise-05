@@ -6,14 +6,17 @@ public class ATMDemo {
 		Bank bank = new Bank();
 		
 		Account a1 = new Account(5000);
+		a1.setPasscode("****");
 		// TODO: a1.setPassword(...)
 		bank.addAccount(a1);
 		
 		Account a2 = new Account(5030);
+		a2.setPasscode("****");
 		// TODO: a2.setPassword(...)
 		bank.addAccount(a2);
 		
 		Account a3 = new Account(5030);
+		a3.setPasscode("****");
 		// TODO: a2.setPassword(...)
 		bank.addAccount(a3);
 		

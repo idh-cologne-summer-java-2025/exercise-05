@@ -13,6 +13,18 @@ public class Account {
 	// the id of the account
 	int id;
 	
+	private int hashedPasscode;
+	
+	public void setPasscode(String passcode) {
+		this.hashedPasscode = passcode.hashCode();
+	}
+	
+	public boolean checkPasscode(String inputPasscode) {
+		return inputPasscode.hashCode() == this.hashedPasscode;
+	}
+	
+	
+	
 	//TODO: Add passcode
 
 	public Account(int status) {
@@ -40,9 +52,20 @@ public class Account {
 	 * Withdraws a sum of money from the account
 	 * @param sum
 	 */
-	public void withdraw(int sum) {
-		this.balance = balance - sum;
+	public boolean withdraw(int sum, String passcode) {
+		if (!checkPasscode(passcode)) {
+			System.out.println("Falscher Passcode");
+				return false;
+			} 
+		if (sum > balance) {
+			System.out.println("Kein Geld verfügbar");
+		}
+		
+		balance -=sum;
+		System.out.println("Abhebung erfolgreich");
+		return true;
+		//this.balance = balance - sum;
 	}
 	
 	
-}
+	}
