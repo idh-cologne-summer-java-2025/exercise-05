@@ -1,37 +1,31 @@
 package idh.java;
 
-public class Bank{
-	
-	// TODO: Use Map to enable a higher number of accounts 
-	// and start nextAccountID with 7000001 
-	Account[] accounts = new Account[5];
-	int nextAccountID;
+public class Bank {
+	private Account[] accounts = new Account[10];
+	private int[] accountIds = new int[10]; // IDs getrennt gespeichert
+	private int count = 0;
+	private int nextAccountID = 7000001;
 
-	public Bank() {
-		nextAccountID = 0;
-	}
-	
 	public boolean addAccount(Account account) {
-		if(notYetFull()) {
-			account.setId(nextAccountID);
-			accounts[nextAccountID]=account;
-			System.out.println("Your account number is " + nextAccountID);
-			
-			nextAccountID++;
-			
-			return true;
-		}
-		else {
+		if (count >= accounts.length) {
+			System.out.println("Bank capacity reached.");
 			return false;
 		}
-	}
-	
-	public Account getAccount(int number) {
-		return accounts[number-1];
-	}
-	
-	public boolean notYetFull() {
-		return nextAccountID < accounts.length;
+		account.setId(nextAccountID);
+		accounts[count] = account;
+		accountIds[count] = nextAccountID;
+		System.out.println("Your account number is " + nextAccountID);
+		nextAccountID++;
+		count++;
+		return true;
 	}
 
+	public Account getAccount(int number) {
+		for (int i = 0; i < count; i++) {
+			if (accountIds[i] == number) {
+				return accounts[i];
+			}
+		}
+		return null;
+	}
 }

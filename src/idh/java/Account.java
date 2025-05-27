@@ -12,7 +12,7 @@ public class Account {
 	
 	// the id of the account
 	int id;
-	
+	private int passcodeHash;
 	//TODO: Add passcode
 
 	public Account(int status) {
@@ -44,5 +44,16 @@ public class Account {
 		this.balance = balance - sum;
 	}
 	
-	
+	public void setPasscode(int passcode) {
+		this.passcodeHash = encode(passcode);
+	}
+
+	public boolean checkPasscode(int input) {
+		return passcodeHash == encode(input);
+	}
+
+	private int encode(int passcode) {
+		
+		return (passcode * 31 + 7);
+	}
 }
