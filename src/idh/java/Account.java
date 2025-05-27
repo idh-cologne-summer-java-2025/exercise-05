@@ -13,7 +13,7 @@ public class Account {
 	// the id of the account
 	int id;
 	
-	//TODO: Add passcode
+	int passcode; // TODO: Implement passcode handling
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
