@@ -13,6 +13,7 @@ public class Account {
 	// the id of the account
 	int id;
 	
+	int passcodeHash; 
 	//TODO: Add passcode
 
 	public Account(int status) {
@@ -27,7 +28,11 @@ public class Account {
 	public void setId(int id) {
 		this.id = id;
 	}
+    public int getPassword() {
 
+    return passcodeHash;
+	
+    }
 	public int getBalance() {
 		return balance;
 	}
@@ -35,14 +40,15 @@ public class Account {
 	public void setBalance(int status) {
 		this.balance = status;
 	}
-	
-	/**
-	 * Withdraws a sum of money from the account
-	 * @param sum
-	 */
+	 public void setPassword(String passcode) {
+	 this.passcodeHash = passcode.hashCode();
+	 	 
+	 }
+
 	public void withdraw(int sum) {
 		this.balance = balance - sum;
 	}
+
 	
 	
 }
