@@ -9,14 +9,16 @@ package idh.java;
 public class Account {
 	// the balance of the account
 	int balance;
+
+	private Integer password; //is this even needed?
 	
-	public Integer getPassword() {
+	public String getPassword() {
 		return passcode;
 	}
 
-//	public void setPassword(Integer password) {
-//		this.password = password;
-//	}
+	public void setPassword(Integer password) {
+		this.password = password;
+	}
 
 	// the id of the account
 	int id;
@@ -29,7 +31,7 @@ public class Account {
 		this.balance = status;
 //		this.passcode = passcode.hashCode(); //moved to setPasscode
 		this.setPasscode();
-		passcode.valueOf(passcode);
+//		passcode.valueOf(passcode);
 	}
 	
 	public int getId() {
@@ -51,9 +53,10 @@ public class Account {
 	public Integer getPasscode() {
 		return passcode.hashCode();
 	}
-//	HashFunction to encode passcode (Not collision-safe, should change to SHA-256)
+//	HashFunction to encode passcode, how do I get a hashCode from a String
 	public void setPasscode() {
-		this.passcode = passcode.hashCode();
+		String pwHash = this.getPassword();
+		  pwHash.hashCode();
 	}
 
 	/**

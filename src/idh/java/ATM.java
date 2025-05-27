@@ -10,7 +10,7 @@ public class ATM  {
 	int cash = 100000;
 
 	Bank bank;
-	
+	String accountPass = "";
 	public ATM(Bank bank) {
 		this.bank = bank;
 	}
@@ -27,9 +27,11 @@ public class ATM  {
 			try {
 				System.out.print("Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
+				System.out.println("passcode to verify");
+				accountPass = br.readLine();
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount, passcode);
+				cashout(accountNumber, amount, accountPass);
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -52,10 +54,9 @@ public class ATM  {
 		}
 		
 		// TODO: Check passcode!
-		if(accountPass.HashCode() != account.getPasscode()) 
+		if(accountPass.hashCode() != account.getPasscode()) {
 			System.out.println("Wrong Passcode");
-			return;
-		
+		}
 		// check for balance of the account
 		if (amount > account.getBalance()) {
 			System.out.println("Sorry, you're out of money.");
