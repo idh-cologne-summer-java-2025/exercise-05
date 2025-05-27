@@ -1,5 +1,9 @@
 package idh.java;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+
 
 /**
  * This class represents an account in our bank.
@@ -13,7 +17,7 @@ public class Account {
 	// the id of the account
 	int id;
 	
-	//TODO: Add passcode
+	private byte[] passcodeHash;
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
@@ -44,5 +48,20 @@ public class Account {
 		this.balance = balance - sum;
 	}
 	
+	public void setPassword(String passcode) {
+		this.passcodeHash = hash(passcode);
+	}
 	
+	public boolean checkPassword(String input) {
+		return Arrays.equals(this.passcodeHash, hash(input));
+	}
+	
+	private byte[] hash(String input) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			return digest.digest(input.getBytes());
+		}	catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("SHA-256 algorithm not available");
+		}
+	}
 }
