@@ -2,6 +2,7 @@ package idh.java;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ATM  {
@@ -36,8 +37,12 @@ public class ATM  {
 			}
 		}
 	}
+	
 
-	public void cashout(int accountNumber, int amount) {
+
+	public void cashout(int accountNumber, int amount) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -49,7 +54,17 @@ public class ATM  {
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
-		}
+		} 
+		
+		
+			System.out.print("Enter your password; ");
+			int password = Integer.parseInt(br.readLine());
+			if(account.getPasscode()!= password){
+				System.out.println("Falscher Passcode");
+				return;
+			}	
+			
+		
 		
 		// TODO: Check passcode!
 		

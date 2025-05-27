@@ -1,12 +1,14 @@
 package idh.java;
 
-
+import java.util.HashMap;
 /**
  * This class represents an account in our bank.
  * @author reiterns
  *
  */
 public class Account {
+	
+	
 	// the balance of the account
 	int balance;
 	
@@ -14,6 +16,14 @@ public class Account {
 	int id;
 	
 	//TODO: Add passcode
+	int passcode;
+	
+	public void setPasscode(int passcode) {
+		this.passcode = passcode;
+	}
+	public int getPasscode() {
+		return passcode;
+	}
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
