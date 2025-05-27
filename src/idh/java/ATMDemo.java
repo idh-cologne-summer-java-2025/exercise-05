@@ -1,25 +1,17 @@
 package idh.java;
 
 public class ATMDemo {
+    public static void main(String[] args) {
+        Bank bank = new Bank();
 
-	public static void main(String[] args) {
-		Bank bank = new Bank();
-		
-		Account a1 = new Account(5000);
-		// TODO: a1.setPassword(...)
-		bank.addAccount(a1);
-		
-		Account a2 = new Account(5030);
-		// TODO: a2.setPassword(...)
-		bank.addAccount(a2);
-		
-		Account a3 = new Account(5030);
-		// TODO: a2.setPassword(...)
-		bank.addAccount(a3);
-		
-		ATM atm = new ATM(bank);
-		atm.run();
-		
-	}
+        // Beispielkonten anlegen
+        bank.addAccount(new Account(5000, "1234"));
+        bank.addAccount(new Account(2500, "abcd"));
+        bank.addAccount(new Account(10000, "pass"));
+				bank.addAccount(new Account(1000, "passtschon"));
 
+        // ATM starten
+        ATM atm = new ATM(bank);
+        atm.run();
+    }
 }
