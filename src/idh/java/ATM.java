@@ -1,6 +1,6 @@
 package idh.java;
 
-//
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -29,7 +29,7 @@ public class ATM  {
 				int accountNumber = Integer.parseInt(br.readLine());
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				cashout(accountNumber, amount, passcode);
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -37,7 +37,7 @@ public class ATM  {
 		}
 	}
 
-	public void cashout(int accountNumber, int amount) {
+	public void cashout(int accountNumber, int amount, String passcode) {
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -52,6 +52,9 @@ public class ATM  {
 		}
 		
 		// TODO: Check passcode!
+		if(accountPass.HashCode() != account.getPasscode()) 
+			System.out.println("Wrong Passcode");
+			return;
 		
 		// check for balance of the account
 		if (amount > account.getBalance()) {
