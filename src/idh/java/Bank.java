@@ -1,37 +1,42 @@
 package idh.java;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Bank{
 	
-	// TODO: Use Map to enable a higher number of accounts 
-	// and start nextAccountID with 7000001 
-	Account[] accounts = new Account[5];
-	int nextAccountID;
+	// Eine HashMap erstellen
+	 private Map<Integer, Account> accounts = new HashMap<>(); //Generics <Integer, Account>; Integer für Kontonummer also Key; Typ ist Account (ein Objekt der Account-Klasse
+	 	
+	 int nextAccountID = 7000001;
+  
 
 	public Bank() {
-		nextAccountID = 0;
+		//oder neue Konten hier initialisieren
 	}
 	
-	public boolean addAccount(Account account) {
-		if(notYetFull()) {
+	// neues Konto hinzufügen
+	public int addAccount(Account account) { //Typ der Methode ändern (boolean -> int)
 			account.setId(nextAccountID);
-			accounts[nextAccountID]=account;
+			accounts.put(nextAccountID, account); //HashMap-Methode put benutzen anstatt addAccountID
 			System.out.println("Your account number is " + nextAccountID);
 			
-			nextAccountID++;
-			
-			return true;
-		}
-		else {
-			return false;
-		}
+			return nextAccountID++; //Rückgabewert der Methode (ein AccountID wird vergeben dann erhöhen sie sich alle bei der Bank um 1
 	}
 	
-	public Account getAccount(int number) {
-		return accounts[number-1];
-	}
+	//Konto anhand der ID finden
+	public Account getAccount(int accountId) {
+        return accounts.get(accountId);
+    }
 	
-	public boolean notYetFull() {
-		return nextAccountID < accounts.length;
-	}
+	
+	public static void main(String[] args){
+		Bank bank = new Bank();
+		
 
+        Account Account1 = new Account(500); 
+        int id1 = bank.addAccount(Account1);
+
+        
+
+	}
 }

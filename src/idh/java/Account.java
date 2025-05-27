@@ -13,7 +13,12 @@ public class Account {
 	// the id of the account
 	int id;
 	
-	//TODO: Add passcode
+	int passCode;
+	
+	public Account (int balance, int passCode) {
+		this.balance = balance;
+		
+	}
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!

@@ -9,10 +9,10 @@ public class ATM  {
 	// initial cash in the ATM
 	int cash = 100000;
 
-	Bank bank;
+	Bank bank; // Feld für das Bank-Objekt deklarieren
 	
 	public ATM(Bank bank) {
-		this.bank = bank;
+		this.bank = bank;  // Im Konstruktor wird das Feld (vorherige bank-Variable) gesetzt
 	}
 	
 	/**
