@@ -27,6 +27,8 @@ public class ATM  {
 			try {
 				System.out.print("Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
+				System.out.print("Enter your passcode to verify");
+				String accountPass = (br.readLine());
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
 				cashout(accountNumber, amount);
@@ -52,6 +54,9 @@ public class ATM  {
 		}
 		
 		// TODO: Check passcode!
+		if (accountPass.hashCode() != account.getPassword()) {
+			System.out.println("Sorry, wrong passcode.");
+		}
 		
 		// check for balance of the account
 		if (amount > account.getBalance()) {
