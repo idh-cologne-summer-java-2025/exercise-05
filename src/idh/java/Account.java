@@ -1,48 +1,58 @@
 package idh.java;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
-/**
- * This class represents an account in our bank.
- * @author reiterns
- *
- */
 public class Account {
-	// the balance of the account
-	int balance;
-	
-	// the id of the account
-	int id;
-	
-	//TODO: Add passcode
+    private int number;
+    private String owner;
+    private double balance;
+    private byte[] passcodeHash;
 
-	public Account(int status) {
-		// ID wird von der Bank vergeben!
-		this.balance = status;
-	}
-	
-	public int getId() {
-		return id;
-	}
+    public Account(int number, String owner, int passcode) {
+        this.number = number;
+        this.owner = owner;
+        this.balance = 0;
+        this.passcodeHash = hashPasscode(passcode);
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private byte[] hashPasscode(int passcode) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            return md.digest(String.valueOf(passcode).getBytes());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	public int getBalance() {
-		return balance;
-	}
+    public boolean checkPasscode(int passcode) {
+        return Arrays.equals(this.passcodeHash, hashPasscode(passcode));
+    }
 
-	public void setBalance(int status) {
-		this.balance = status;
-	}
-	
-	/**
-	 * Withdraws a sum of money from the account
-	 * @param sum
-	 */
-	public void withdraw(int sum) {
-		this.balance = balance - sum;
-	}
-	
-	
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public boolean withdraw(double amount, int passcode) {
+        if (!checkPasscode(passcode)) return false;
+        if (balance >= amount) {
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public double getBalance(int passcode) {
+        if (!checkPasscode(passcode)) return -1;
+        return balance;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
 }
