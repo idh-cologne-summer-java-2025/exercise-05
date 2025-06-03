@@ -51,7 +51,20 @@ public class ATM  {
 			return;
 		}
 		
-		// TODO: Check passcode!
+		//Check passcode
+		System.out.print("Enter your 4-digit passcode: ");
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			String passcode = br.readLine();
+			if (!account.checkPasscode(passcode)) {
+				System.out.println("Incorrect passcode.");
+				return;
+			}
+		} catch (Exception e) {
+			System.out.println("Passcode input failed.");
+			return;
+		}
+
 		
 		// check for balance of the account
 		if (amount > account.getBalance()) {

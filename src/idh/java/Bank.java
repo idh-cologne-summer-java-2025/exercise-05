@@ -6,7 +6,7 @@ public class Bank{
 	
 	// TODO: Use Map to enable a higher number of accounts 
 	// and start nextAccountID with 7000001 
-    private HashMap<Integer, Account> accounts;
+    private HashMap<Integer, Account> accountsHM = new HashMap<>();
 	int nextAccountID;
 	
 
@@ -17,7 +17,7 @@ public class Bank{
 	public boolean addAccount(Account account) {
 		
 			account.setId(nextAccountID);
-			accounts.put(nextAccountID, account);
+			accountsHM.put(nextAccountID, account);
 			System.out.println("Your account number is " + nextAccountID);
 			
 			nextAccountID++;
@@ -27,7 +27,7 @@ public class Bank{
 	}
 	
 	public Account getAccount(int number) {
-		return accounts.get(number);
+		return accountsHM.get(number);
 	}
 	
 	
