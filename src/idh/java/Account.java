@@ -3,7 +3,7 @@ package idh.java;
 
 /**
  * This class represents an account in our bank.
- * @author reiterns
+ * @author hermesj
  *
  */
 public class Account {
@@ -13,11 +13,25 @@ public class Account {
 	// the id of the account
 	int id;
 	
-	//TODO: Add passcode
+	// Add passcode
+	int passcodehash;
 
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
 		this.balance = status;
+	}
+	
+	public void setPasscode(String passcode) {
+		this.passcodehash = passcode.trim().hashCode();
+	}
+	
+	/** Checks the passcode - and yes, hashes are crytographically not a very strong,
+	 * there are better methods ;-)
+	 * @param passcode
+	 * @return
+	 */
+	public boolean login(String passcode) {
+		return this.passcodehash==passcode.trim().hashCode();
 	}
 	
 	public int getId() {
@@ -41,7 +55,11 @@ public class Account {
 	 * @param sum
 	 */
 	public void withdraw(int sum) {
-		this.balance = balance - sum;
+	    if (sum > 0 && sum <= balance) { // Wird allerdings auch von der Bank überprüft, hier nochmal zur Sicherheit.
+	        balance -= sum;
+	    } else {
+	        throw new IllegalArgumentException("Zuwenig Geld auf dem Konto!");
+	    }
 	}
 	
 	
