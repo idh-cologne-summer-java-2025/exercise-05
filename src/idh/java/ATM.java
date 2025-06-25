@@ -52,7 +52,9 @@ public class ATM  {
 		}
 		
 		// TODO: Check passcode!
-		
+		if (accountPass.hashcode( != account.getPassword()) {
+			System.out.println("Sorry, wrong Password");
+		}
 		// check for balance of the account
 		if (amount > account.getBalance()) {
 			System.out.println("Sorry, you're out of money.");
