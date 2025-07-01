@@ -1,5 +1,6 @@
 package idh.java;
 
+		
 
 /**
  * This class represents an account in our bank.
@@ -13,8 +14,9 @@ public class Account {
 	// the id of the account
 	int id;
 	
-	//TODO: Add passcode
-
+	//Add passcode
+	int passcodeHash;
+	
 	public Account(int status) {
 		// ID wird von der Bank vergeben!
 		this.balance = status;
@@ -27,6 +29,15 @@ public class Account {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
+	public int getPassword() {
+		return passcodeHash;
+	}
+	
+	public void setPassword(String passcode) {
+		this.passcodeHash = passcode.hashCode();
+	}	
 
 	public int getBalance() {
 		return balance;
